@@ -83,9 +83,8 @@ class List extends Component {
                     <tr>
                         <th>Dato</th>
                         <th>Etasje</th>
-                        <th>Utgift</th>
                         <th>Beskrivelse</th>
-                        <th>Oppgjør</th>
+                        <th>Verdi</th>
                         <th>Tilh. 1. etg</th>
                         <th>Tilh. 2. etg</th>
                         <th>Kommentar</th>

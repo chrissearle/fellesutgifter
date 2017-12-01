@@ -17,6 +17,13 @@ export function formatFloor(floor) {
 }
 
 export function formatAmount(amount) {
-    return new Intl.NumberFormat('nb-NO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount) + ' kr'
+    if (Math.abs(amount) > 0) {
+        return new Intl.NumberFormat('nb-NO', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(amount) + ' kr'
+    } else {
+        return ''
+    }
 }
 

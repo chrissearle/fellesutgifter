@@ -13,7 +13,7 @@ class Transaction extends Component {
 
     render() {
         return (
-            <tr>
+            <tr className={this.props.transaction.type}>
                 <td>
                     {formatMoment(this.props.transaction.moment)}
                 </td>
@@ -24,22 +24,16 @@ class Transaction extends Component {
                     {
                         this.isExpense()
                         &&
-                        `${this.props.transaction.expense_type.group.title} ${this.props.transaction.expense_type.title}`
+                        `Utgift: ${this.props.transaction.expense_type.group.title} ${this.props.transaction.expense_type.title}`
                     }
-                </td>
-                <td align='right'>
-                    {
-                        this.isExpense()
-                        &&
-                        formatAmount(this.props.transaction.amount)
-                    }
-                </td>
-                <td align='right'>
                     {
                         this.isPayment()
                         &&
-                        formatAmount(this.props.transaction.amount)
+                        `Innbetaling`
                     }
+                </td>
+                <td align='right'>
+                    {formatAmount(this.props.transaction.amount)}
                 </td>
                 <td align='right'>
                     {formatAmount(this.props.transaction.amount1)}
