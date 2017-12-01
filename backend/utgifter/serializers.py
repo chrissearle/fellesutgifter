@@ -6,10 +6,12 @@ from .models import (ExpenseGroup, ExpenseType, Expense, Payment)
 class PaymentSerializer(serializers.ModelSerializer):
     amount = serializers.FloatField()
 
+    date = serializers.DateField(source='payment_date')
+
     class Meta:
         model = Payment
         fields = (
-            'payment_date', 'floor', 'amount')
+            'date', 'floor', 'amount')
 
 
 class ExpenseGroupSerializer(serializers.ModelSerializer):
@@ -33,7 +35,8 @@ class ExpenseTypeSerializer(serializers.ModelSerializer):
 class ExpenseSerializer(serializers.ModelSerializer):
     expense_type = ExpenseTypeSerializer()
     amount = serializers.FloatField()
+    date = serializers.DateField(source='expense_date')
 
     class Meta:
         model = Expense
-        fields = ('expense_date', 'floor', 'amount', 'expense_type')
+        fields = ('date', 'floor', 'amount', 'expense_type')
