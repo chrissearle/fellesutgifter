@@ -36,7 +36,12 @@ class Expense(models.Model):
 
     amount = models.DecimalField(
         max_digits=10,
-        decimal_places=2,
+        decimal_places=3,
+    )
+
+    comments = models.TextField(
+        blank=True,
+        null=True
     )
 
     expense_type = models.ForeignKey(ExpenseType, on_delete=models.CASCADE)
@@ -52,5 +57,11 @@ class Payment(models.Model):
 
     amount = models.DecimalField(
         max_digits=10,
-        decimal_places=2,
+        decimal_places=3,
     )
+
+    comments = models.TextField(
+        blank=True,
+        null=True
+    )
+

@@ -11,7 +11,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = (
-            'date', 'floor', 'amount')
+            'date', 'floor', 'amount', 'comments')
 
 
 class ExpenseGroupSerializer(serializers.ModelSerializer):
@@ -39,4 +39,4 @@ class ExpenseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Expense
-        fields = ('date', 'floor', 'amount', 'expense_type')
+        fields = ('date', 'floor', 'amount', 'expense_type', 'comments')

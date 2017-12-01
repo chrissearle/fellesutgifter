@@ -1,14 +1,16 @@
 import React, {Component} from 'react'
 import ExpenseService from '../services/ExpenseService'
 import Loading from './Loading'
-import moment from 'moment'
 import Transaction from './Transaction'
+import TransactionService from '../services/TransactionService'
+import {formatAmount} from '../formatters'
 
 class List extends Component {
     state = {
         loadingExpenses: true,
         loadingPayments: true,
-        errorExpenses: false
+        errorExpenses: false,
+        balance: 0
     };
 
     componentDidMount() {
@@ -52,43 +54,7 @@ class List extends Component {
             return
         }
 
-        const transactions = []
-
-        this.state.payments.forEach((payment) => {
-            transactions.push(
-                {
-                    ...payment,
-                    type: 'payment',
-                    moment: moment(payment.date)
-                }
-            )
-        })
-
-        this.state.expenses.forEach((expense) => {
-            transactions.push(
-                {
-                    ...expense,
-                    type: 'expense',
-                    moment: moment(expense.date)
-                }
-            )
-        })
-
-        transactions.sort((a, b) => {
-            if (a.moment.isBefore(b.moment)) {
-                return 1
-            }
-
-            if (a.moment.isAfter(b.moment)) {
-                return -1
-            }
-
-            return 0
-        })
-
-        this.setState({
-            transactions: transactions
-        })
+        this.setState(TransactionService.mergeTransactions(this.state.payments, this.state.expenses))
     }
 
     render() {
@@ -108,6 +74,10 @@ class List extends Component {
             <div>
                 <h1>Transactions</h1>
 
+                {this.state.balance &&
+                <div>{formatAmount(this.state.balance)}</div>
+                }
+
                 <table>
                     <thead>
                     <tr>
@@ -116,6 +86,9 @@ class List extends Component {
                         <th>Utgift</th>
                         <th>Beskrivelse</th>
                         <th>Oppgjør</th>
+                        <th>Tilh. 1. etg</th>
+                        <th>Tilh. 2. etg</th>
+                        <th>Kommentar</th>
                     </tr>
                     </thead>
                     <tbody>
