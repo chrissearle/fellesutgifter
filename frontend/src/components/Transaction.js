@@ -1,6 +1,8 @@
-import React, {Component} from 'react'
+import {TableCell, TableRow} from 'material-ui/Table';
 import PropTypes from 'prop-types'
-import {formatMoment, formatFloor, formatAmount} from '../formatters'
+import React, {Component} from 'react'
+import {formatAmount, formatFloor, formatMoment} from '../formatters'
+
 
 class Transaction extends Component {
     isExpense() {
@@ -13,38 +15,38 @@ class Transaction extends Component {
 
     render() {
         return (
-            <tr className={this.props.transaction.type}>
-                <td>
+            <TableRow className={this.props.transaction.type}>
+                <TableCell>
                     {formatMoment(this.props.transaction.moment)}
-                </td>
-                <td align='center'>
+                </TableCell>
+                <TableCell>
                     {formatFloor(this.props.transaction.floor)}
-                </td>
-                <td>
+                </TableCell>
+                <TableCell>
                     {
                         this.isExpense()
                         &&
-                        `Utgift: ${this.props.transaction.expense_type.group.title} ${this.props.transaction.expense_type.title}`
+                        `${this.props.transaction.expense_type.group.title} ${this.props.transaction.expense_type.title}`
                     }
                     {
                         this.isPayment()
                         &&
                         `Innbetaling`
                     }
-                </td>
-                <td align='right'>
+                </TableCell>
+                <TableCell numeric={true}>
                     {formatAmount(this.props.transaction.amount)}
-                </td>
-                <td align='right'>
+                </TableCell>
+                <TableCell numeric={true}>
                     {formatAmount(this.props.transaction.amount1)}
-                </td>
-                <td align='right'>
+                </TableCell>
+                <TableCell numeric={true}>
                     {formatAmount(this.props.transaction.amount2)}
-                </td>
-                <td>
+                </TableCell>
+                <TableCell>
                     {this.props.transaction.comments && this.props.transaction.comments}
-                </td>
-            </tr>
+                </TableCell>
+            </TableRow>
         )
     }
 }
